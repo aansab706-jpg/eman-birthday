@@ -1,0 +1,628 @@
+```html
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Eman 💜</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:'Poppins', sans-serif;
+    background:linear-gradient(135deg,#eef5ff,#f5edff,#e9f4ff);
+    color:#4d4964;
+}
+
+.screen{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+    opacity:0;
+    visibility:hidden;
+    transform:scale(0.96);
+    transition:all .7s ease;
+}
+
+.screen.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+.card{
+    width:min(650px,94vw);
+    padding:45px 30px;
+    border-radius:30px;
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(15px);
+    box-shadow:0 20px 60px rgba(109,94,160,.15);
+    text-align:center;
+    border:1px solid rgba(255,255,255,.8);
+}
+
+.small{
+    font-size:14px;
+    letter-spacing:3px;
+    color:#8179a7;
+    margin-bottom:12px;
+}
+
+h1{
+    font-family:'Dancing Script',cursive;
+    font-size:clamp(48px,9vw,78px);
+    color:#7669ad;
+    margin-bottom:12px;
+}
+
+h2{
+    font-family:'Dancing Script',cursive;
+    font-size:42px;
+    color:#7568aa;
+    margin-bottom:18px;
+}
+
+p{
+    line-height:1.8;
+    font-size:16px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    margin-top:25px;
+    padding:14px 28px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#9d8bd3,#789edb);
+    color:white;
+    font-size:15px;
+    font-family:'Poppins',sans-serif;
+    box-shadow:0 10px 25px rgba(120,110,180,.25);
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px rgba(120,110,180,.35);
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+/* Floating hearts */
+.heart{
+    position:fixed;
+    font-size:18px;
+    opacity:.5;
+    animation:float 7s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh) rotate(0deg);
+        opacity:0;
+    }
+    20%{opacity:.5}
+    to{
+        transform:translateY(-10vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* Cake */
+.cake-area{
+    margin:20px auto;
+    position:relative;
+    width:220px;
+    height:190px;
+}
+
+.plate{
+    position:absolute;
+    bottom:15px;
+    left:5px;
+    width:210px;
+    height:18px;
+    border-radius:50%;
+    background:#d8d4ea;
+    box-shadow:0 5px 10px rgba(80,70,120,.15);
+}
+
+.cake{
+    position:absolute;
+    bottom:30px;
+    left:30px;
+    width:160px;
+    height:100px;
+    border-radius:15px 15px 22px 22px;
+    background:linear-gradient(#d9c5f4,#bca7df);
+    box-shadow:inset 0 8px rgba(255,255,255,.4);
+}
+
+.cake:before{
+    content:"";
+    position:absolute;
+    top:-18px;
+    left:0;
+    width:160px;
+    height:35px;
+    border-radius:50%;
+    background:#f4e8ff;
+}
+
+.cream{
+    position:absolute;
+    top:2px;
+    left:15px;
+    width:130px;
+    height:25px;
+    border-radius:50%;
+    background:#fff;
+}
+
+.candle{
+    position:absolute;
+    width:12px;
+    height:55px;
+    background:linear-gradient(90deg,#9b8bd0,#c8bbef);
+    top:-65px;
+    border-radius:5px;
+    left:74px;
+}
+
+.candle:after{
+    content:"";
+    position:absolute;
+    width:4px;
+    height:13px;
+    background:#4c425f;
+    top:-8px;
+    left:4px;
+}
+
+.flame{
+    position:absolute;
+    top:-30px;
+    left:1px;
+    width:12px;
+    height:20px;
+    background:#ffd66d;
+    border-radius:50% 50% 50% 50%;
+    box-shadow:0 0 18px #ffd66d;
+    animation:flicker .5s infinite alternate;
+}
+
+@keyframes flicker{
+    from{transform:scale(1) rotate(-3deg)}
+    to{transform:scale(1.15) rotate(4deg)}
+}
+
+.candle.off .flame{
+    animation:none;
+    opacity:0;
+    transform:scale(0);
+    transition:.4s;
+}
+
+/* Confetti */
+.confetti{
+    position:fixed;
+    width:10px;
+    height:18px;
+    top:-30px;
+    z-index:100;
+    pointer-events:none;
+    animation:confettiFall 4s linear forwards;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* Dua */
+.dua{
+    font-family:'Noto Naskh Arabic',serif;
+    direction:rtl;
+    font-size:25px;
+    line-height:2;
+    color:#62588d;
+    margin:20px 0;
+}
+
+/* Gallery */
+.gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:25px auto;
+    max-width:470px;
+}
+
+.photo{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(90,80,130,.15);
+    transition:.4s;
+}
+
+.photo:hover{
+    transform:scale(1.03) rotate(1deg);
+}
+
+.final-message{
+    font-family:'Dancing Script',cursive;
+    font-size:27px;
+    line-height:1.7;
+    color:#6e5c9d;
+}
+
+/* Progress dots */
+.progress{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:7px;
+    z-index:200;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#d0cae5;
+    transition:.3s;
+}
+
+.dot.active{
+    width:24px;
+    border-radius:20px;
+    background:#8e7fc4;
+}
+
+@media(max-width:500px){
+    .card{
+        padding:35px 20px;
+    }
+
+    .photo{
+        height:145px;
+    }
+
+    .dua{
+        font-size:21px;
+    }
+
+    h2{
+        font-size:36px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts -->
+<div class="heart" style="left:8%;animation-delay:0s">💜</div>
+<div class="heart" style="left:25%;animation-delay:2s">✨</div>
+<div class="heart" style="left:48%;animation-delay:4s">💙</div>
+<div class="heart" style="left:70%;animation-delay:1s">💜</div>
+<div class="heart" style="left:88%;animation-delay:3s">✨</div>
+
+<!-- Progress -->
+<div class="progress">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- 1. OPEN SURPRISE -->
+<section class="screen active" id="screen1">
+    <div class="card">
+
+        <div class="small">A LITTLE SURPRISE FOR YOU ✨</div>
+
+        <h1>Eman 💜</h1>
+
+        <p>
+            آج کا دن تھوڑا سا خاص ہے...<br>
+            کیونکہ آج ایک بہت پیاری انسان کی سالگرہ ہے۔ 🎂
+        </p>
+
+        <button onclick="startBirthday()">
+            🎁 Open Your Surprise
+        </button>
+
+    </div>
+</section>
+
+
+<!-- 2. CAKE -->
+<section class="screen" id="screen2">
+    <div class="card">
+
+        <div class="small">A SPECIAL CAKE FOR YOU</div>
+
+        <h2>Happy Birthday Eman 🎂</h2>
+
+        <div class="cake-area">
+
+            <div class="plate"></div>
+
+            <div class="cake">
+
+                <div class="cream"></div>
+
+                <div class="candle" id="candle">
+                    <div class="flame"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p>
+            Close your eyes for a moment... ✨<br>
+            Make a beautiful wish. 💜
+        </p>
+
+        <button onclick="blowCandle()">
+            🕯️ Make a Wish & Blow the Candle
+        </button>
+
+    </div>
+</section>
+
+
+<!-- 3. CANDLE OFF / CONFETTI -->
+<section class="screen" id="screen3">
+    <div class="card">
+
+        <div class="small">WISH MADE ✨</div>
+
+        <h1>YAY! 🎉</h1>
+
+        <p style="font-size:20px;">
+            May every beautiful wish<br>
+            in your heart come true. 💜
+        </p>
+
+        <div style="font-size:55px;margin:20px;">
+            🎂 ✨ 🎉 💜
+        </div>
+
+        <button onclick="showDua()">
+            🤲 ایک خوبصورت دعا
+        </button>
+
+    </div>
+</section>
+
+
+<!-- 4. DUA -->
+<section class="screen" id="screen4">
+    <div class="card">
+
+        <div class="small">A LITTLE DUAA FOR YOU 🤲</div>
+
+        <h2>تمہارے لیے ایک دعا</h2>
+
+        <div class="dua">
+            اللہ تمہاری زندگی کو خوشیوں،<br>
+            سکون اور کامیابیوں سے بھر دے۔<br><br>
+
+            تمہاری ہر جائز خواہش پوری ہو،<br>
+            ہر مشکل آسان ہو،<br>
+            اور تم ہمیشہ اپنے پیاروں کے درمیان<br>
+            مسکراتی رہو۔ آمین۔ 🤍
+        </div>
+
+        <button onclick="showPictures()">
+            📸 Some Beautiful Memories
+        </button>
+
+    </div>
+</section>
+
+
+<!-- 5. PICTURES -->
+<section class="screen" id="screen5">
+    <div class="card">
+
+        <div class="small">A FEW MEMORIES ✨</div>
+
+        <h2>Beautiful Moments 💜</h2>
+
+      <div class="gallery">
+
+    <img src="pic1.jpg" class="photo" alt="Memory 1">
+    <img src="pic2.jpg" class="photo" alt="Memory 2">
+    <img src="pic3.jpg" class="photo" alt="Memory 3">
+    <img src="pic4.jpg" class="photo" alt="Memory 4">
+    <img src="pic5.jpg" class="photo" alt="Memory 5">
+
+</div>
+        </div>
+
+        <button onclick="showFinal()">
+            💜 One Last Message
+        </button>
+
+    </div>
+</section>
+
+
+<!-- 6. FINAL MESSAGE -->
+<section class="screen" id="screen6">
+    <div class="card">
+
+        <div class="small">FOR YOU, EMAN ✨</div>
+
+        <h1>Happy Birthday! 🎂</h1>
+
+        <div class="final-message">
+
+            تمہاری مسکراہٹ ہمیشہ ایسی ہی خوبصورت رہے،<br>
+            اور تمہاری زندگی کا ہر آنے والا سال<br>
+            پچھلے سال سے بھی زیادہ خوبصورت ہو۔ 💜<br><br>
+
+            دعا ہے کہ اللہ تمہیں<br>
+            ہمیشہ خوش رکھے، کامیاب رکھے،<br>
+            اور تمہارے دل کی ہر اچھی دعا قبول فرمائے۔ 🤲✨<br><br>
+
+            <strong>Happy Birthday, Eman! 💜</strong>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Here's to another beautiful year of your life. 🦋
+        </p>
+
+    </div>
+</section>
+
+
+<script>
+
+let currentScreen = 1;
+
+function changeScreen(number){
+
+    document.querySelectorAll('.screen').forEach(screen=>{
+        screen.classList.remove('active');
+    });
+
+    document.getElementById('screen'+number).classList.add('active');
+
+    document.querySelectorAll('.dot').forEach((dot,index)=>{
+        dot.classList.toggle('active',index === number-1);
+    });
+
+    currentScreen = number;
+}
+
+
+/* Start birthday + music */
+function startBirthday(){
+
+    const music = document.getElementById('music');
+
+    music.volume = 0.35;
+
+    music.play().catch(()=>{
+        // Browser may block autoplay until interaction
+    });
+
+    changeScreen(2);
+}
+
+
+/* Blow candle */
+function blowCandle(){
+
+    const candle = document.getElementById('candle');
+
+    candle.classList.add('off');
+
+    // Short delay so candle actually goes off first
+    setTimeout(()=>{
+
+        createConfetti();
+
+        setTimeout(()=>{
+            changeScreen(3);
+        },1200);
+
+    },500);
+}
+
+
+/* Confetti */
+function createConfetti(){
+
+    const symbols = ['💜','💙','✨','🎉','💖','⭐'];
+
+    for(let i=0;i<100;i++){
+
+        const confetti = document.createElement('div');
+
+        confetti.className = 'confetti';
+
+        confetti.innerHTML =
+            symbols[Math.floor(Math.random()*symbols.length)];
+
+        confetti.style.left =
+            Math.random()*100 + 'vw';
+
+        confetti.style.fontSize =
+            (10 + Math.random()*18) + 'px';
+
+        confetti.style.animationDuration =
+            (2.5 + Math.random()*2.5) + 's';
+
+        confetti.style.animationDelay =
+            Math.random()*0.7 + 's';
+
+        document.body.appendChild(confetti);
+
+        setTimeout(()=>{
+            confetti.remove();
+        },6000);
+    }
+}
+
+
+/* Dua */
+function showDua(){
+    changeScreen(4);
+}
+
+
+/* Pictures */
+function showPictures(){
+    changeScreen(5);
+}
+
+
+/* Final */
+function showFinal(){
+    changeScreen(6);
+
+    // More subtle final confetti
+    setTimeout(createConfetti,300);
+}
+
+</script>
+
+</body>
+</html>
+```
